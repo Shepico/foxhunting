@@ -1,0 +1,26 @@
+@startuml
+
+start
+
+repeat
+: Выберите сложность(difficulty) /
+
+if (difficulty = easy) then (True)
+    :строим 10*10 (10 лис);
+elseif (difficulty = medium)
+    :строим 20*20 (20 лис);
+elseif (difficulty = hard)
+    :строим 30*30 (30 лис);
+endif
+
+
+:игра;
+
+:Поставили рекорд;
+if (рекорд = да) then (True)
+    :Обновляем таблицу рекордов;
+endif
+repeat while (выходим?)
+
+stop
+@enduml
