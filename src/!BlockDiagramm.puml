@@ -1,0 +1,35 @@
+@startuml
+
+start
+
+repeat
+: Выберите сложность(difficulty) /
+
+if (difficulty = easy) then (True)
+    :строим 10*10 (10 лис);
+elseif (difficulty = medium)
+    :строим 20*20 (20 лис);
+elseif (difficulty = hard)
+    :строим 30*30 (30 лис);
+endif
+
+while (Пойманы все лисы?) is (нет)
+    :Ждем выбора пользователя /
+    if (попали в лису) then (True)
+        :Уменьшаем количество оставшихся лис;
+        :Выводим лису на экран;
+    else
+        :Расчет количества лис на пересечении;
+        :Выводим цифру на экране;
+    endif
+
+endwhile
+
+:Поставили рекорд;
+if (рекорд = да) then (True)
+    :Обновляем таблицу рекордов;
+endif
+repeat while (выходим?)
+
+stop
+@enduml
