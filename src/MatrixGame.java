@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 public class MatrixGame {
     private int size_map;
@@ -23,6 +26,11 @@ public class MatrixGame {
     }
 
     private void fillMatrix(){
+        ClassLoader loader = this.getClass().getClassLoader(); // получили СlassLoader по умолчанию
+        Icon ic = new ImageIcon(loader.getResource("fox.png"));
+        System.out.println(ic);
+
+
 
     }
 }
