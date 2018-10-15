@@ -16,6 +16,7 @@ public class MatrixGame {
     public JTable getMatrix() {
         return matrix;
     }
+
 ///////private////////////////
     private void createMatrixGame (){
         matrix = new JTable(size_map,size_map);
