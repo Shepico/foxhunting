@@ -19,8 +19,19 @@ public class Fox {
     }
 
     private void placeFox(){
-        Coord coord = Ranges.getRandomCoord();
-        foxMap.set(coord, Box.fox);
+        while (true) {
+            Coord coord = Ranges.getRandomCoord();
+            if (Box.fox == foxMap.get(coord)) {
+                continue;
+            }
+            foxMap.set(coord, Box.fox);
+            break;
+        }
+
+    }
+
+    private void placeNum() {
+
     }
 
 }
