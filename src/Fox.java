@@ -8,7 +8,10 @@ public class Fox {
 
     void start(){
         foxMap = new MatrixGame(Box.empty);
-        placeFox();
+        for (int i=0; i<totalFox; i++){
+            placeFox();
+        }
+
     }
 
     Box get (Coord coord) {
@@ -16,7 +19,8 @@ public class Fox {
     }
 
     private void placeFox(){
-        foxMap.set(new Coord(5,5), Box.fox);
+        Coord coord = Ranges.getRandomCoord();
+        foxMap.set(coord, Box.fox);
     }
 
 }
