@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class GameField extends JFrame {
     private final  int SIZE = 500;
@@ -9,24 +8,24 @@ public class GameField extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                createFrame(sizePlay);
+                initFrame(sizePlay);
             }
             });
     }
 
-    private void createFrame(int sizePlay){
-            new JFrame();
+    private void initFrame(int sizePlay){
+            pack();
             setTitle(GAME_NAME);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(SIZE, SIZE);
+            //setSize(SIZE, SIZE);
+            setResizable(false);
             //
-
-            getContentPane().add(createMatrix(sizePlay,true), BorderLayout.CENTER);  //создаем системную матрицу
 
             //
             setLocationRelativeTo(null);
             setVisible(true);
     }
+
 
     private JTable createMatrix(int sizePlay, boolean system){
         MatrixGame matrix = new MatrixGame(sizePlay, system);
