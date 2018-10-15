@@ -16,6 +16,7 @@ public class FoxHuntingStart extends JFrame{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                Ranges.setSize(new Coord(COLS, ROWS));
                 setImages();
                 initPanel();
                 initFrame();
@@ -43,7 +44,8 @@ public class FoxHuntingStart extends JFrame{
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 for (Box box:Box.values()){
-                    g.drawImage((Image)box.image,box.ordinal()*IMAGE_SIZE,0,this);
+                    Coord coord = new Coord(box.ordinal()*IMAGE_SIZE, 0);
+                    g.drawImage((Image)box.image,coord.getX(),coord.getY(),this);
                 }
 
             }
@@ -51,7 +53,7 @@ public class FoxHuntingStart extends JFrame{
 
         };
 
-        panel.setPreferredSize(new Dimension(COLS*IMAGE_SIZE,ROWS*IMAGE_SIZE));
+        panel.setPreferredSize(new Dimension(Ranges.getSize().getX()*IMAGE_SIZE,Ranges.getSize().getY()*IMAGE_SIZE));
         add(panel);
     }
 
