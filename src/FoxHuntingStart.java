@@ -10,7 +10,7 @@ public class FoxHuntingStart extends JFrame{
     private final int COLS = 10;
     private final int ROWS = 10;
     private final int IMAGE_SIZE = 50;
-    private final int TOTAL_FOX = 100;
+    private final int TOTAL_FOX = 8;
 
     public static void main (String[] args) {
         new FoxHuntingStart();
