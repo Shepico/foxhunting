@@ -1,36 +1,27 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
-public class MatrixGame {
-    private int size_map;
-    private JTable matrix;
 
-    MatrixGame (int sizeField, boolean systemMatrix) {
-        size_map = sizeField;
-        createMatrixGame();
-        if (systemMatrix){
-            fillMatrix();
+class MatrixGame {
+
+    private Box [][] matrix;
+
+    MatrixGame(Box defaultBox) {
+        matrix = new Box[Ranges.getSize().getX()][Ranges.getSize().getY()];
+        for(Coord coord:Ranges.getAllCoord()){
+            matrix[coord.getX()] [coord.getY()] = defaultBox;
         }
-
-    }
-///////public/////////////////
-    public JTable getMatrix() {
-        return matrix;
     }
 
-///////private////////////////
-    private void createMatrixGame (){
-        matrix = new JTable(size_map,size_map);
+    void set(Coord coord, Box box) {
+        if (Ranges.inRange (coord)) {
+            matrix [coord.getX()] [coord.getY()] = box;
+        }
     }
 
-    private void fillMatrix(){
-        ClassLoader loader = this.getClass().getClassLoader(); // получили СlassLoader по умолчанию
-        Icon ic = new ImageIcon(loader.getResource("fox.png"));
-        System.out.println(ic);
-
-
-
+    Box get (Coord coord) {
+        if (Ranges.inRange (coord)) {
+            return matrix [coord.getX()] [coord.getY()];
+        }
+        return null;
     }
 }

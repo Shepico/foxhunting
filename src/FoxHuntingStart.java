@@ -1,11 +1,14 @@
+import com.sun.prism.image.Coords;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class FoxHuntingStart extends JFrame{
     private final String GAME_NAME = " Fox hunting";
+    private Game game;
     private JPanel panel;
-    private final int COLS = 14;
-    private final int ROWS = 1;
+    private final int COLS = 10;
+    private final int ROWS = 10;
     private final int IMAGE_SIZE = 50;
 
     public static void main (String[] args) {
@@ -16,7 +19,9 @@ public class FoxHuntingStart extends JFrame{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Ranges.setSize(new Coord(COLS, ROWS));
+                //Ranges.setSize(new Coord(COLS, ROWS));
+                game = new Game(COLS, ROWS);
+                game.start();
                 setImages();
                 initPanel();
                 initFrame();
@@ -43,9 +48,9 @@ public class FoxHuntingStart extends JFrame{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                for (Box box:Box.values()){
-                    Coord coord = new Coord(box.ordinal()*IMAGE_SIZE, 0);
-                    g.drawImage((Image)box.image,coord.getX(),coord.getY(),this);
+                for (Coord coord:Ranges.getAllCoord()){
+
+                    g.drawImage((Image)game.getBox(coord).image,coord.getX()*IMAGE_SIZE,coord.getY()*IMAGE_SIZE,this);
                 }
 
             }
