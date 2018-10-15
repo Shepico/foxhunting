@@ -10,6 +10,7 @@ public class FoxHuntingStart extends JFrame{
     private final int COLS = 10;
     private final int ROWS = 10;
     private final int IMAGE_SIZE = 50;
+    private final int TOTAL_FOX = 10;
 
     public static void main (String[] args) {
         new FoxHuntingStart();
@@ -20,7 +21,7 @@ public class FoxHuntingStart extends JFrame{
             @Override
             public void run() {
                 //Ranges.setSize(new Coord(COLS, ROWS));
-                game = new Game(COLS, ROWS);
+                game = new Game(COLS, ROWS, TOTAL_FOX);
                 game.start();
                 setImages();
                 initPanel();
@@ -31,7 +32,7 @@ public class FoxHuntingStart extends JFrame{
 
 
     private void initFrame(){
-        pack();
+
         setTitle(GAME_NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(getImage("icon"));
@@ -40,7 +41,9 @@ public class FoxHuntingStart extends JFrame{
 
         //
         setLocationRelativeTo(null);
+        pack();
         setVisible(true);
+
     }
 
     private void initPanel() {
