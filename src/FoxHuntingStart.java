@@ -71,6 +71,10 @@ public class FoxHuntingStart extends JFrame{
                 Coord coord = new Coord(x,y);
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     game.pressLeftButton(coord);
+                }else if (e.getButton() == MouseEvent.BUTTON3) {
+                    game.pressRightButton(coord);
+                }else if (e.getButton() == MouseEvent.BUTTON2) { //перезапуск игры по средней кнопке
+                    game.start();
                 }
                 panel.repaint();
             }
