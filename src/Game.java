@@ -3,6 +3,7 @@ public class Game {
     private Fox fox;
     private Flag flag;
     private int foxCount;
+    private int stepCount;
 
     public GameState getState() {
         return state;
@@ -16,6 +17,7 @@ public class Game {
         fox = new Fox(foxs);
         flag = new Flag();
         foxCount = foxs;
+        stepCount = 0;
     }
 
     public Box getBox (Coord coord){
@@ -49,10 +51,15 @@ public class Game {
                 switch (fox.get(coord)) {
                     case fox : {
                         foxCount--;
+                        stepCount++;
                         flag.setOpenedToBox(coord);
                         return;
                     }
-                    default : flag.setOpenedToBox(coord); return;
+                    default : {
+                        stepCount++;
+                        flag.setOpenedToBox(coord);
+                        return;
+                    }
 
                 }
             }
@@ -66,5 +73,9 @@ public class Game {
 
     public int getFoxs() {
         return foxCount;
+    }
+
+    public int getStep() {
+        return stepCount;
     }
 }

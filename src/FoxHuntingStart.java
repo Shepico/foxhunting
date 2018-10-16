@@ -10,6 +10,9 @@ public class FoxHuntingStart extends JFrame{
     private JLabel labelState;
     private Game game;
     private JPanel panel;
+    private JPanel scoreboard;
+    private JLabel countStep;
+    private JLabel countFox;
     private final int COLS = 10;
     private final int ROWS = 10;
     private final int IMAGE_SIZE = 50;
@@ -28,6 +31,7 @@ public class FoxHuntingStart extends JFrame{
                 game.start();
                 setImages();
                 initLabelState();
+                initScoreboard();
                 initPanel();
                 initFrame();
             }
@@ -54,6 +58,22 @@ public class FoxHuntingStart extends JFrame{
     private void initLabelState() {
         labelState = new JLabel("Welcome");
         add(labelState, BorderLayout.SOUTH);
+    }
+
+    private void initScoreboard() {
+        scoreboard = new JPanel();
+        scoreboard.setLayout(new GridLayout(1,2));
+        countStep = new JLabel();
+        countFox = new JLabel();
+        updateScoreboard();
+        scoreboard.add(countFox);
+        scoreboard.add(countStep);
+        add(scoreboard, BorderLayout.NORTH);
+    }
+
+    private void updateScoreboard() {
+        countStep.setText("Количество шагов - " + game.getStep());
+        countFox.setText("Количество не найденных лис - " + game.getFoxs());
     }
 
     private void initPanel() {
@@ -83,6 +103,7 @@ public class FoxHuntingStart extends JFrame{
                 }else if (e.getButton() == MouseEvent.BUTTON2) { //перезапуск игры по средней кнопке
                     game.start();
                 }
+                updateScoreboard();
                 labelState.setText(getMessage());
                 panel.repaint();
             }
