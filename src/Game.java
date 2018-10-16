@@ -39,7 +39,9 @@ public class Game {
     }
 
     public void pressLeftButton(Coord coord) {
-        openBox (coord);
+        if (state != GameState.WINNER) {
+            openBox(coord);
+        }
         //flag.setOpenedToBox(coord);
     }
 
@@ -69,7 +71,9 @@ public class Game {
     }
 
     public void pressRightButton(Coord coord) {
-        flag.toggleFlagToBox(coord);
+        if (state != GameState.WINNER) {
+            flag.toggleFlagToBox(coord);
+        }
     }
 
     private void checkWinner() {
