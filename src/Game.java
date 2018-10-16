@@ -53,6 +53,7 @@ public class Game {
                         foxCount--;
                         stepCount++;
                         flag.setOpenedToBox(coord);
+                        checkWinner();
                         return;
                     }
                     default : {
@@ -69,6 +70,12 @@ public class Game {
 
     public void pressRightButton(Coord coord) {
         flag.toggleFlagToBox(coord);
+    }
+
+    private void checkWinner() {
+        if (foxCount == 0) {
+            state = GameState.WINNER;
+        }
     }
 
     public int getFoxs() {
