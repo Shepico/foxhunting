@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 public class FoxHuntingStart extends JFrame{
     private final String GAME_NAME = " Fox hunting";
+    private JLabel labelState;
     private Game game;
     private JPanel panel;
     private final int COLS = 10;
@@ -26,6 +27,7 @@ public class FoxHuntingStart extends JFrame{
                 game = new Game(COLS, ROWS, TOTAL_FOX);
                 game.start();
                 setImages();
+                initLabelState();
                 initPanel();
                 initFrame();
             }
@@ -47,6 +49,11 @@ public class FoxHuntingStart extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
 
+    }
+
+    private void initLabelState() {
+        labelState = new JLabel("Welcome");
+        add(labelState, BorderLayout.SOUTH);
     }
 
     private void initPanel() {
@@ -76,12 +83,21 @@ public class FoxHuntingStart extends JFrame{
                 }else if (e.getButton() == MouseEvent.BUTTON2) { //перезапуск игры по средней кнопке
                     game.start();
                 }
+                labelState.setText(getMessage());
                 panel.repaint();
             }
         });
 
         panel.setPreferredSize(new Dimension(Ranges.getSize().getX()*IMAGE_SIZE,Ranges.getSize().getY()*IMAGE_SIZE));
         add(panel);
+    }
+
+    private String getMessage() {
+        switch (game.getState()) {
+            case PLAYED: return "Think twice!";
+            case WINNER: return "Congratulation!";
+            default: return "Welcome!";
+        }
     }
 
     private void setImages() {
