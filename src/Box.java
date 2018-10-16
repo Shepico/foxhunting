@@ -12,7 +12,8 @@ public enum Box {
     number9,
     number10,
     fox,
-    flag;
+    flag,
+    open;
 
     public Object image;
 
