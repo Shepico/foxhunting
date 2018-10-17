@@ -10,6 +10,7 @@ public class Game {
     private int foxMax;
     private Timer timerGame;
     private int durationGame;
+    private double rating;
 
     public GameState getState() {
         return state;
@@ -45,6 +46,7 @@ public class Game {
         state = GameState.PLAYED;
         foxCount = foxMax;
         stepCount = 0;
+        rating = 0;
         durationGame=0;
         timerGame.schedule(new TimerTask() {
 
@@ -100,12 +102,13 @@ public class Game {
         if (foxCount == 0) {
             state = GameState.WINNER;
             timerGame.cancel();
+            rating = stepCount / durationGame * foxMax;
         }
     }
 
-    /*private void incTime(){
-        durationGame++;
-    }*/
+    public double getRating(){
+        return rating;
+    }
 
     public int getTimer(){
         return durationGame;
