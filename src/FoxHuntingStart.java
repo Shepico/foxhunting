@@ -133,7 +133,10 @@ public class FoxHuntingStart extends JFrame{
     private String getMessage() {
         switch (game.getState()) {
             case PLAYED: return "Think twice!";
-            case WINNER: return "Congratulation!";
+            case WINNER: {
+                JOptionPane.showMessageDialog(this,"Congratulation!","You win", JOptionPane.DEFAULT_OPTION, new ImageIcon(getClass().getResource("winner.png")));
+                return "Congratulation!";
+            }
             default: return "Welcome!";
         }
     }
