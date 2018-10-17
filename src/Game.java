@@ -1,3 +1,6 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Game {
 
     private Fox fox;
@@ -5,6 +8,8 @@ public class Game {
     private int foxCount;
     private int stepCount;
     private int foxMax;
+    private Timer timerGame;
+    private int durationGame;
 
     public GameState getState() {
         return state;
@@ -18,6 +23,8 @@ public class Game {
         fox = new Fox(foxs);
         flag = new Flag();
         foxMax = foxs;
+        timerGame = new Timer();
+
         //foxCount = foxs;
         //stepCount = 0;
     }
@@ -38,6 +45,15 @@ public class Game {
         state = GameState.PLAYED;
         foxCount = foxMax;
         stepCount = 0;
+        durationGame=0;
+        timerGame.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                durationGame++;
+            }
+        },0,1000);
+
         //foxMap = new MatrixGame(Box.empty);
         //foxMap.set(new Coord(0,1),Box.fox);
     }
@@ -84,6 +100,14 @@ public class Game {
         if (foxCount == 0) {
             state = GameState.WINNER;
         }
+    }
+
+    /*private void incTime(){
+        durationGame++;
+    }*/
+
+    public int getTimer(){
+        return durationGame;
     }
 
     public int getFoxs() {

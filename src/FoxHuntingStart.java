@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.*;
 
 public class FoxHuntingStart extends JFrame{
     private final String GAME_NAME = " Fox hunting";
@@ -13,6 +16,7 @@ public class FoxHuntingStart extends JFrame{
     private JPanel scoreboard;
     private JLabel countStep;
     private JLabel countFox;
+    private JLabel timerGame;
     private final int COLS = 10;
     private final int ROWS = 10;
     private final int IMAGE_SIZE = 50;
@@ -62,18 +66,21 @@ public class FoxHuntingStart extends JFrame{
 
     private void initScoreboard() {
         scoreboard = new JPanel();
-        scoreboard.setLayout(new GridLayout(1,2));
+        scoreboard.setLayout(new GridLayout(1,3));
         countStep = new JLabel();
         countFox = new JLabel();
+        timerGame = new JLabel();
         updateScoreboard();
         scoreboard.add(countFox);
         scoreboard.add(countStep);
+        scoreboard.add(timerGame);
         add(scoreboard, BorderLayout.NORTH);
     }
 
     private void updateScoreboard() {
         countStep.setText("Количество шагов - " + game.getStep());
-        countFox.setText("Количество не найденных лис - " + game.getFoxs());
+        countFox.setText("Не найдено лис - " + game.getFoxs());
+        timerGame.setText("Время (c): " + game.getTimer());
     }
 
     private void initPanel() {
