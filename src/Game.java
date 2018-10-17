@@ -4,6 +4,7 @@ public class Game {
     private Flag flag;
     private int foxCount;
     private int stepCount;
+    private int foxMax;
 
     public GameState getState() {
         return state;
@@ -16,8 +17,9 @@ public class Game {
         Ranges.setSize(new Coord(cols, rows));
         fox = new Fox(foxs);
         flag = new Flag();
-        foxCount = foxs;
-        stepCount = 0;
+        foxMax = foxs;
+        //foxCount = foxs;
+        //stepCount = 0;
     }
 
     public Box getBox (Coord coord){
@@ -34,6 +36,8 @@ public class Game {
         fox.start();
         flag.start();
         state = GameState.PLAYED;
+        foxCount = foxMax;
+        stepCount = 0;
         //foxMap = new MatrixGame(Box.empty);
         //foxMap.set(new Coord(0,1),Box.fox);
     }
