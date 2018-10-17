@@ -99,6 +99,7 @@ public class Game {
     private void checkWinner() {
         if (foxCount == 0) {
             state = GameState.WINNER;
+            timerGame.cancel();
         }
     }
 

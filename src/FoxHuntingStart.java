@@ -4,9 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.*;
+
 
 public class FoxHuntingStart extends JFrame{
     private final String GAME_NAME = " Fox hunting";
@@ -17,6 +15,7 @@ public class FoxHuntingStart extends JFrame{
     private JLabel countStep;
     private JLabel countFox;
     private JLabel timerGame;
+    private Thread timerExecute;
     private final int COLS = 10;
     private final int ROWS = 10;
     private final int IMAGE_SIZE = 50;
@@ -38,8 +37,19 @@ public class FoxHuntingStart extends JFrame{
                 initScoreboard();
                 initPanel();
                 initFrame();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(true) {
+                            timerGame.setText("Время (c): " + game.getTimer());
+                            panel.repaint();
+                        }
+                    }
+                }).start();
             }
         });
+
     }
 
 
@@ -139,4 +149,5 @@ public class FoxHuntingStart extends JFrame{
         ImageIcon icon = new ImageIcon(getClass().getResource(filename));
         return icon.getImage();
     }
+
 }
