@@ -24,6 +24,7 @@ public class FoxHuntingStart extends JFrame{
     private final int IMAGE_SIZE = 50;
     private final int TOTAL_FOX = 8;
     private JMenuBar topMenu;
+    private DialogRules dialogRules;
 
     public static void main (String[] args) {
         new FoxHuntingStart();
@@ -65,6 +66,7 @@ public class FoxHuntingStart extends JFrame{
         setIconImage(getImage("icon"));
         setResizable(false);
         //
+
         setJMenuBar(topMenu);
         //
 
@@ -124,6 +126,15 @@ public class FoxHuntingStart extends JFrame{
         // }
         JMenu helpMenu = new JMenu("Help");
         JMenuItem rulesItem = new JMenuItem("Rules");
+        rulesItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dialogRules == null) {
+                    dialogRules = new DialogRules(FoxHuntingStart.this);
+                }
+                dialogRules.setVisible(true);
+            }
+        });
         JMenuItem aboutItem = new JMenuItem("About");
         helpMenu.add(rulesItem);
         helpMenu.add(aboutItem);
@@ -201,5 +212,8 @@ public class FoxHuntingStart extends JFrame{
         ImageIcon icon = new ImageIcon(getClass().getResource(filename));
         return icon.getImage();
     }
+
+    // реализация окон для меню
+
 
 }
