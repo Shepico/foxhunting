@@ -2,8 +2,11 @@ import com.sun.prism.image.Coords;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 
 
 public class FoxHuntingStart extends JFrame{
@@ -20,6 +23,7 @@ public class FoxHuntingStart extends JFrame{
     private final int ROWS = 10;
     private final int IMAGE_SIZE = 50;
     private final int TOTAL_FOX = 8;
+    private JMenuBar topMenu;
 
     public static void main (String[] args) {
         new FoxHuntingStart();
@@ -36,6 +40,7 @@ public class FoxHuntingStart extends JFrame{
                 initLabelState();
                 initScoreboard();
                 initPanel();
+                initMenuBar();
                 initFrame();
 
                 new Thread(new Runnable() {
@@ -60,7 +65,7 @@ public class FoxHuntingStart extends JFrame{
         setIconImage(getImage("icon"));
         setResizable(false);
         //
-
+        setJMenuBar(topMenu);
         //
 
         pack();
@@ -76,7 +81,7 @@ public class FoxHuntingStart extends JFrame{
 
     private void initScoreboard() {
         scoreboard = new JPanel();
-        scoreboard.setLayout(new GridLayout(1,3));
+        scoreboard.setLayout(new GridLayout(1,4));
         countStep = new JLabel();
         countFox = new JLabel();
         timerGame = new JLabel();
@@ -85,6 +90,46 @@ public class FoxHuntingStart extends JFrame{
         scoreboard.add(countStep);
         scoreboard.add(timerGame);
         add(scoreboard, BorderLayout.NORTH);
+    }
+
+    private void initMenuBar() {
+        topMenu = new JMenuBar();
+        //
+        JMenu fileMenu = new JMenu("File");
+        //{
+        JMenu difficultyMenu = new JMenu("Difficulity");
+        //{
+        JMenuItem easyItem = new JMenuItem("Easy");
+        JMenuItem mediumItem = new JMenuItem("Medium");
+        JMenuItem hardItem = new JMenuItem("Hard");
+        //}
+        difficultyMenu.add(easyItem);
+        difficultyMenu.add(mediumItem);
+        difficultyMenu.add(hardItem);
+        //
+        JMenuItem assistantItem = new JMenuItem("Use assistant");
+
+        // выход
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        //
+        fileMenu.add(difficultyMenu);
+        fileMenu.add(assistantItem);
+        fileMenu.add(exitItem);
+        // }
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem rulesItem = new JMenuItem("Rules");
+        JMenuItem aboutItem = new JMenuItem("About");
+        helpMenu.add(rulesItem);
+        helpMenu.add(aboutItem);
+        //
+        topMenu.add(fileMenu);
+        topMenu.add(helpMenu);
     }
 
     private void updateScoreboard() {

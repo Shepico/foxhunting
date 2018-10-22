@@ -11,6 +11,7 @@ public class Game {
     private Timer timerGame;
     private int durationGame;
     private double rating;
+    private int helper = 0; // Сделать игру с помошником
 
     public GameState getState() {
         return state;
@@ -103,6 +104,11 @@ public class Game {
             state = GameState.WINNER;
             timerGame.cancel();
             rating = stepCount / durationGame * foxMax;
+            //Если играл с помошником убавляем рейтинг в 3 раза
+            if (helper == 1) {
+                rating = rating / 3;
+            }
+
         }
     }
 
