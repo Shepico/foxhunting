@@ -41,10 +41,10 @@ public class FoxHuntingStart extends JFrame{
             public void run() {
                 //Ranges.setSize(new Coord(COLS, ROWS));
                 createDialogDifficulty();
-                dialog.setVisible(true);
-
-                game = new Game(cols, rows, total_fox);
-                game.start();
+                //dialog.setVisible(true);
+                gameStart();
+                //game = new Game(cols, rows, total_fox);
+                //game.start();
                 setImages();
                 initLabelState();
                 initScoreboard();
@@ -138,15 +138,23 @@ public class FoxHuntingStart extends JFrame{
         //
         JMenu fileMenu = new JMenu("File");
         //{
-        JMenu difficultyMenu = new JMenu("Difficulity");
+        JMenuItem difficultyMenu = new JMenuItem("Difficulity");
         //{
-        JMenuItem easyItem = new JMenuItem("Easy");
+        /*JMenuItem easyItem = new JMenuItem("Easy");
         JMenuItem mediumItem = new JMenuItem("Medium");
-        JMenuItem hardItem = new JMenuItem("Hard");
+        JMenuItem hardItem = new JMenuItem("Hard");*/
+
+        difficultyMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameStart();
+                setSize(1000,1000);
+            }
+        });
         //}
-        difficultyMenu.add(easyItem);
+        /*difficultyMenu.add(easyItem);
         difficultyMenu.add(mediumItem);
-        difficultyMenu.add(hardItem);
+        difficultyMenu.add(hardItem);*/
         //
         JMenuItem assistantItem = new JMenuItem("Use assistant");
 
@@ -347,6 +355,15 @@ public class FoxHuntingStart extends JFrame{
         dialogStart.setLocationRelativeTo(this);
     }
 
+  /*  private JDialog getDialogDifficuty(){
+        return dialog.setVisible(true);
+    }*/
 
+    private void gameStart() {
+        dialog.setVisible(true);
+        game = new Game(cols, rows, total_fox);
+        game.start();
+
+    }
 
 }
