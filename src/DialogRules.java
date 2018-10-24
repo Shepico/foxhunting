@@ -26,6 +26,8 @@ public class DialogRules extends JDialog {
         rulesTxt.append("\n Правая кнопка мыши - отметить клетку пустой \n (Шаг не считается)");
         rulesTxt.append("\n Средняя кнопка мыши - Новая игра");
 
+        rulesTxt.setEditable(false);
+
         JPanel pnlRules = new JPanel();
         pnlRules.setBackground(Color.WHITE);
         pnlRules.setBorder(new EmptyBorder(10, 10, 0, 10));

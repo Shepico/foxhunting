@@ -25,6 +25,7 @@ public class FoxHuntingStart extends JFrame{
     private int total_fox = 8;
     private JMenuBar topMenu;
     private DialogRules dialogRules;
+    private DialogAbout dialogAbout;
     //Диалоги
     private JDialog dialog;
     private JDialog dialogStart;
@@ -78,6 +79,7 @@ public class FoxHuntingStart extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(getImage("icon"));
         setResizable(false);
+
         //setSize(COLS*IMAGE_SIZE, ROWS*IMAGE_SIZE);
         //
         //
@@ -148,7 +150,7 @@ public class FoxHuntingStart extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameStart();
-                setSize(1000,1000);
+                setSize(cols*IMAGE_SIZE, rows*IMAGE_SIZE + 90);
             }
         });
         //}
@@ -156,7 +158,7 @@ public class FoxHuntingStart extends JFrame{
         difficultyMenu.add(mediumItem);
         difficultyMenu.add(hardItem);*/
         //
-        JMenuItem assistantItem = new JMenuItem("Use assistant");
+        JCheckBoxMenuItem assistantItem = new JCheckBoxMenuItem("Use assistant", false);
 
         // выход
         JMenuItem exitItem = new JMenuItem("Exit");
@@ -183,6 +185,15 @@ public class FoxHuntingStart extends JFrame{
             }
         });
         JMenuItem aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dialogAbout == null) {
+                    dialogAbout = new DialogAbout(FoxHuntingStart.this);
+                }
+                dialogAbout.setVisible(true);
+            }
+        });
         helpMenu.add(rulesItem);
         helpMenu.add(aboutItem);
         //
