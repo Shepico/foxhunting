@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -6,7 +7,7 @@ public class Game {
     private Fox fox;
     private Flag flag;
     private int foxCount;
-    private int stepCount;
+    private double stepCount;
     private int foxMax;
     private Timer timerGame;
     private int durationGame;
@@ -114,11 +115,13 @@ public class Game {
         if (foxCount == 0) {
             state = GameState.WINNER;
             timerGame.cancel();
-            rating = stepCount / durationGame * foxMax;
+            rating = durationGame / stepCount * foxMax;
             //Если играл с помошником убавляем рейтинг в 3 раза
             if (helper == 1) {
                 rating = rating / 3;
             }
+            DecimalFormat f = new DecimalFormat("##.00"); //округление
+            f.format(rating);
 
         }
     }
@@ -135,7 +138,7 @@ public class Game {
         return foxCount;
     }
 
-    public int getStep() {
+    public double getStep() {
         return stepCount;
     }
 }
