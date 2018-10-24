@@ -48,6 +48,20 @@ public class Game {
         foxCount = foxMax;
         stepCount = 0;
         rating = 0;
+        /*durationGame=0;
+        timerGame.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                durationGame++;
+            }
+        },0,1000);*/
+
+        //foxMap = new MatrixGame(Box.empty);
+        //foxMap.set(new Coord(0,1),Box.fox);
+    }
+
+    public void startTimer(){
         durationGame=0;
         timerGame.schedule(new TimerTask() {
 
@@ -56,9 +70,6 @@ public class Game {
                 durationGame++;
             }
         },0,1000);
-
-        //foxMap = new MatrixGame(Box.empty);
-        //foxMap.set(new Coord(0,1),Box.fox);
     }
 
     public void pressLeftButton(Coord coord) {

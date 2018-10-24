@@ -19,12 +19,17 @@ public class FoxHuntingStart extends JFrame{
     private JLabel countFox;
     private JLabel timerGame;
     private Thread timerExecute;
-    private final int COLS = 10;
-    private final int ROWS = 10;
+    private int cols = 0;
+    private int rows = 0;
     private final int IMAGE_SIZE = 50;
-    private final int TOTAL_FOX = 8;
+    private int total_fox = 8;
     private JMenuBar topMenu;
     private DialogRules dialogRules;
+    //Диалоги
+    private JDialog dialog;
+    private JDialog dialogStart;
+    /* private JInternalFrame selectDifficulty;
+    JDesktopPane desktopPane;*/
 
     public static void main (String[] args) {
         new FoxHuntingStart();
@@ -35,7 +40,10 @@ public class FoxHuntingStart extends JFrame{
             @Override
             public void run() {
                 //Ranges.setSize(new Coord(COLS, ROWS));
-                game = new Game(COLS, ROWS, TOTAL_FOX);
+                createDialogDifficulty();
+                dialog.setVisible(true);
+
+                game = new Game(cols, rows, total_fox);
                 game.start();
                 setImages();
                 initLabelState();
@@ -44,6 +52,10 @@ public class FoxHuntingStart extends JFrame{
                 initMenuBar();
                 initFrame();
 
+                createStartDialog();
+                dialogStart.setVisible(true);
+
+                //Запускаем таймер
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -53,6 +65,7 @@ public class FoxHuntingStart extends JFrame{
                         }
                     }
                 }).start();
+
             }
         });
 
@@ -65,9 +78,20 @@ public class FoxHuntingStart extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(getImage("icon"));
         setResizable(false);
+        //setSize(COLS*IMAGE_SIZE, ROWS*IMAGE_SIZE);
+        //
+        //
+
+        //
+        //setSize(cols*IMAGE_SIZE, rows*IMAGE_SIZE);
         //
 
         setJMenuBar(topMenu);
+        //
+        /*desktopPane = new JDesktopPane();
+        add(desktopPane);
+        intiSelectDifficulty();*/
+
         //
 
         pack();
@@ -75,6 +99,21 @@ public class FoxHuntingStart extends JFrame{
         setVisible(true);
 
     }
+
+   /* private void intiSelectDifficulty() {
+        selectDifficulty = new JInternalFrame("Frame",false);
+        JButton btnEasy = new JButton("EASY");
+        JButton btnMedium = new JButton("MEDIUM");
+        JButton btnHard = new JButton("HARD");
+        selectDifficulty.setLayout(new GridLayout(1,3));
+        selectDifficulty.add(btnEasy);
+        selectDifficulty.add(btnMedium);
+        selectDifficulty.add(btnHard);
+
+        desktopPane.add(selectDifficulty);
+        selectDifficulty.setSize(300,100);
+        selectDifficulty.setVisible(true);
+    }*/
 
     private void initLabelState() {
         labelState = new JLabel("Welcome");
@@ -214,6 +253,100 @@ public class FoxHuntingStart extends JFrame{
     }
 
     // реализация окон для меню
+    //диалог выбора размера карты
+    private void createDialogDifficulty(){
+
+        dialog = new JDialog(this,"Select level", true);
+        dialog.setIconImage(getImage("icon"));
+
+
+        JPanel panelLevel = new JPanel();
+        panelLevel.setLayout(new GridLayout(1,3));
+        //
+        JButton btnEasy = new JButton("EASY");
+        JButton btnMedium = new JButton("MEDIUM");
+        JButton btnHard = new JButton("HARD");
+        //
+        btnEasy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cols = 10;
+                rows = 10;
+                btnEasy.setBackground(Color.orange);
+                btnMedium.setBackground(null);
+                btnHard.setBackground(null);
+            }
+        });
+
+
+        btnMedium.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cols = 15;
+                rows = 15;
+                total_fox = 12;
+                btnEasy.setBackground(null);
+                btnMedium.setBackground(Color.orange);
+                btnHard.setBackground(null);
+            }
+        });
+
+
+        btnHard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cols = 20;
+                rows = 20;
+                total_fox = 16;
+                btnEasy.setBackground(null);
+                btnMedium.setBackground(null);
+                btnHard.setBackground(Color.orange);
+            }
+        });
+        JButton btnOK = new JButton("OK");
+        btnOK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.setVisible(false);
+            }
+        });
+
+        JPanel panelDiff = new JPanel();
+
+        panelLevel.add(btnEasy);
+        panelLevel.add(btnMedium);
+        panelLevel.add(btnHard);
+
+        panelDiff.add(btnOK);
+
+        dialog.add(panelLevel, BorderLayout.CENTER);
+        dialog.add(panelDiff, BorderLayout.SOUTH);
+
+        dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        dialog.setSize(280, 120);
+        dialog.setLocationRelativeTo(this);
+        //setVisible(false);
+        //return dialog;
+    }
+
+    //Диалог старт
+    private void createStartDialog() {
+        dialogStart = new JDialog(this,"",true);
+        dialogStart.setSize(100,40);
+        dialogStart.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        dialogStart.setUndecorated(true);
+        JButton btnStart = new JButton("START");
+        btnStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialogStart.setVisible(false);
+                game.startTimer();
+            }
+        });
+        dialogStart.add(btnStart);
+        dialogStart.setLocationRelativeTo(this);
+    }
+
 
 
 }
