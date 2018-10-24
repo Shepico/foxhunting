@@ -331,7 +331,7 @@ public class FoxHuntingStart extends JFrame{
 
     //Диалог старт
     private void createStartDialog() {
-        dialogStart = new JDialog(this,"",true);
+        dialogStart = new JDialog(this,"",false);
         dialogStart.setSize(100,40);
         dialogStart.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         dialogStart.setUndecorated(true);

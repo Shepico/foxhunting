@@ -120,7 +120,7 @@ public class Game {
             if (helper == 1) {
                 rating = rating / 3;
             }
-            DecimalFormat f = new DecimalFormat("##.00"); //округление
+            DecimalFormat f = new DecimalFormat("###.000"); //округление
             f.format(rating);
 
         }

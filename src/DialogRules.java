@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +8,8 @@ public class DialogRules extends JDialog {
 
     public DialogRules(JFrame owner) {
         super(owner,"Rules game", true);
+        //setBackground(Color.WHITE);
+        setUndecorated(true);
 
         JTextArea rulesTxt = new JTextArea();
         rulesTxt.append("На поле случайным неизвестным для игрока \n");
@@ -18,9 +21,16 @@ public class DialogRules extends JDialog {
         rulesTxt.append("диагоналях с указанной клеткой.\n");
         rulesTxt.append("Если местоположение игрока совпало с положением \n");
         rulesTxt.append("«лисы», она считается найденной. \n");
-        rulesTxt.append("Игра продолжается, пока не будут найдены все «лисы».");
+        rulesTxt.append("Игра продолжается, пока не будут найдены все «лисы». \n");
+        rulesTxt.append("\n Левая кнопка мыши - открыть клетку");
+        rulesTxt.append("\n Правая кнопка мыши - отметить клетку пустой \n (Шаг не считается)");
+        rulesTxt.append("\n Средняя кнопка мыши - Новая игра");
 
-        add(rulesTxt);
+        JPanel pnlRules = new JPanel();
+        pnlRules.setBackground(Color.WHITE);
+        pnlRules.setBorder(new EmptyBorder(10, 10, 0, 10));
+        pnlRules.add(rulesTxt);
+        add(pnlRules, BorderLayout.CENTER);
 
         JButton btnOK = new JButton("OK");
 
@@ -32,9 +42,12 @@ public class DialogRules extends JDialog {
         });
 
         JPanel panel = new JPanel();
+        panel.setBackground(Color.WHITE);
         panel.add(btnOK);
+
         add(panel, BorderLayout.SOUTH);
-        setSize(380,250);
+        setSize(380,310);
+        setLocationRelativeTo(owner);
     }
 
 }
