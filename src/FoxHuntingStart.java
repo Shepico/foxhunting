@@ -6,11 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.io.*;
 
 
 public class FoxHuntingStart extends JFrame{
-    private final String GAME_NAME = " Fox hunting";
+    private final String GAME_NAME = "Fox hunting";
     private JLabel labelState;
     private Game game;
     private JPanel panel;
@@ -29,6 +29,7 @@ public class FoxHuntingStart extends JFrame{
     //Диалоги
     private JDialog dialog;
     private JDialog dialogStart;
+    private ListWin listWin;
     /* private JInternalFrame selectDifficulty;
     JDesktopPane desktopPane;*/
 
@@ -53,6 +54,14 @@ public class FoxHuntingStart extends JFrame{
                 initMenuBar();
                 initFrame();
 
+
+
+                //
+                /*String[] resultWin = listWin.getStringAllWin();
+                for (int i = 0; i < resultWin.length; i++) {
+                    System.out.println(resultWin[i]);
+                }*/
+                //
                 createStartDialog();
                 dialogStart.setVisible(true);
 
@@ -101,21 +110,6 @@ public class FoxHuntingStart extends JFrame{
         setVisible(true);
 
     }
-
-   /* private void intiSelectDifficulty() {
-        selectDifficulty = new JInternalFrame("Frame",false);
-        JButton btnEasy = new JButton("EASY");
-        JButton btnMedium = new JButton("MEDIUM");
-        JButton btnHard = new JButton("HARD");
-        selectDifficulty.setLayout(new GridLayout(1,3));
-        selectDifficulty.add(btnEasy);
-        selectDifficulty.add(btnMedium);
-        selectDifficulty.add(btnHard);
-
-        desktopPane.add(selectDifficulty);
-        selectDifficulty.setSize(300,100);
-        selectDifficulty.setVisible(true);
-    }*/
 
     private void initLabelState() {
         labelState = new JLabel("Welcome");
@@ -189,7 +183,8 @@ public class FoxHuntingStart extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (dialogAbout == null) {
-                    dialogAbout = new DialogAbout(FoxHuntingStart.this);
+                    initListWin();
+                    dialogAbout = new DialogAbout(FoxHuntingStart.this, listWin.getStringAllWin());
                 }
                 dialogAbout.setVisible(true);
             }
@@ -253,10 +248,49 @@ public class FoxHuntingStart extends JFrame{
                                         "Your rating = " + rating;
                 JOptionPane.showMessageDialog(this,msgWin,"You win",
                         JOptionPane.DEFAULT_OPTION, new ImageIcon(getClass().getResource("winner.png")));
+                String name = JOptionPane.showInputDialog(this,"Ваше имя:");
+                saveListWin(rating, name);
+
                 return "Congratulation!";
             }
             default: return "Welcome!";
         }
+    }
+
+    private void initListWin() {
+        listWin = new ListWin();
+        try {
+            FileInputStream fis = new FileInputStream("ScoreFoxHunting.out");
+            ObjectInputStream oin = new ObjectInputStream(fis);
+            listWin = (ListWin) oin.readObject();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveListWin (Double raiting, String name) {
+        if (listWin == null) {
+            listWin = new ListWin();
+        }
+        listWin.addListWin(raiting, name);
+        FileOutputStream fos;
+        ObjectOutputStream oos = null;
+        try {
+            fos = new FileOutputStream("ScoreFoxHunting.out");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(listWin);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                oos.flush();
+                oos.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     private void setImages() {

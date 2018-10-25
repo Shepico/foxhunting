@@ -6,12 +6,17 @@ import java.awt.event.ActionListener;
 
 public class DialogAbout extends JDialog {
 
-    public DialogAbout(JFrame owner) {
+    public DialogAbout(JFrame owner, String[] win) {
         super(owner,"About...", true);
         //setBackground(Color.WHITE);
         setUndecorated(true);
 
         JTextArea rulesTxt = new JTextArea();
+
+        for (int i=0; i < win.length; i++) {
+            rulesTxt.append(win[i] + " \n");
+        }
+        rulesTxt.append("\n");
         rulesTxt.append("(c) SheP&Co \n");
         rulesTxt.append("E-Mail: Tols78@Inbox.ru \n");
         rulesTxt.setEditable(false);
@@ -36,7 +41,7 @@ public class DialogAbout extends JDialog {
         panel.add(btnOK);
 
         add(panel, BorderLayout.SOUTH);
-        setSize(280,110);
+        setSize(280,270);
         setLocationRelativeTo(owner);
 
     }

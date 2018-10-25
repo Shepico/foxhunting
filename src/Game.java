@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,7 +50,7 @@ public class Game {
         state = GameState.PLAYED;
         foxCount = foxMax;
         stepCount = 0;
-        rating = 0;
+        rating = 0.0;
         /*durationGame=0;
         timerGame.schedule(new TimerTask() {
 
@@ -115,14 +117,14 @@ public class Game {
         if (foxCount == 0) {
             state = GameState.WINNER;
             timerGame.cancel();
-            rating = durationGame / stepCount * foxMax;
+            rating = stepCount / durationGame * foxMax;
+
             //Если играл с помошником убавляем рейтинг в 3 раза
             if (helper == 1) {
                 rating = rating / 3;
             }
-            DecimalFormat f = new DecimalFormat("###.000"); //округление
-            f.format(rating);
 
+            //rating = f.format(rating);
         }
     }
 
