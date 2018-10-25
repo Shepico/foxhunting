@@ -29,7 +29,7 @@ public class FoxHuntingStart extends JFrame{
     //Диалоги
     private JDialog dialog;
     private JDialog dialogStart;
-    private ListWin listWin;
+    private ListWin listWin = new ListWin();
     /* private JInternalFrame selectDifficulty;
     JDesktopPane desktopPane;*/
 
@@ -53,7 +53,7 @@ public class FoxHuntingStart extends JFrame{
                 initPanel();
                 initMenuBar();
                 initFrame();
-
+                initListWin();
 
 
                 //
@@ -143,8 +143,12 @@ public class FoxHuntingStart extends JFrame{
         difficultyMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //createDialogDifficulty()
+                //dialog.setVisible(true);
                 gameStart();
                 setSize(cols*IMAGE_SIZE, rows*IMAGE_SIZE + 90);
+                updateScoreboard();
+                dialogStart.setVisible(true);
             }
         });
         //}
@@ -183,8 +187,9 @@ public class FoxHuntingStart extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (dialogAbout == null) {
-                    initListWin();
                     dialogAbout = new DialogAbout(FoxHuntingStart.this, listWin.getStringAllWin());
+                } else {
+                    dialogAbout.rereadAbout(listWin.getStringAllWin());
                 }
                 dialogAbout.setVisible(true);
             }
@@ -258,7 +263,7 @@ public class FoxHuntingStart extends JFrame{
     }
 
     private void initListWin() {
-        listWin = new ListWin();
+        //listWin = new ListWin();
         try {
             FileInputStream fis = new FileInputStream("ScoreFoxHunting.out");
             ObjectInputStream oin = new ObjectInputStream(fis);
@@ -269,8 +274,11 @@ public class FoxHuntingStart extends JFrame{
     }
 
     private void saveListWin (Double raiting, String name) {
-        if (listWin == null) {
+       /* if (listWin == null) {
             listWin = new ListWin();
+        }*/
+        if (name == null) {
+            name = "Робот";
         }
         listWin.addListWin(raiting, name);
         FileOutputStream fos;
@@ -325,6 +333,7 @@ public class FoxHuntingStart extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 cols = 10;
                 rows = 10;
+                total_fox = 8;
                 btnEasy.setBackground(Color.orange);
                 btnMedium.setBackground(null);
                 btnHard.setBackground(null);
@@ -384,7 +393,7 @@ public class FoxHuntingStart extends JFrame{
 
     //Диалог старт
     private void createStartDialog() {
-        dialogStart = new JDialog(this,"",false);
+        dialogStart = new JDialog(this,"",true);
         dialogStart.setSize(100,40);
         dialogStart.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         dialogStart.setUndecorated(true);

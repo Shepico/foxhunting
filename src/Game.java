@@ -34,6 +34,10 @@ public class Game {
         //stepCount = 0;
     }
 
+    public void setFox(int foxs) {
+        foxMax = foxs;
+    }
+
     public Box getBox (Coord coord){
         //return Box.values()[(coord.getX() + coord.getY()) % Box.values().length];
         //return fox.get(coord);
@@ -117,12 +121,14 @@ public class Game {
         if (foxCount == 0) {
             state = GameState.WINNER;
             timerGame.cancel();
-            rating = stepCount / durationGame * foxMax;
+            rating = (durationGame / stepCount) * foxMax;
 
             //Если играл с помошником убавляем рейтинг в 3 раза
             if (helper == 1) {
                 rating = rating / 3;
             }
+
+            rating = Math.rint(100.0 * rating) / 100.0;
 
             //rating = f.format(rating);
         }

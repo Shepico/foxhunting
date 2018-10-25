@@ -6,20 +6,23 @@ import java.awt.event.ActionListener;
 
 public class DialogAbout extends JDialog {
 
+    JTextArea rulesTxt;
+
     public DialogAbout(JFrame owner, String[] win) {
         super(owner,"About...", true);
         //setBackground(Color.WHITE);
         setUndecorated(true);
 
-        JTextArea rulesTxt = new JTextArea();
+        rulesTxt = new JTextArea();
+        setTxtAbout(win);
 
-        for (int i=0; i < win.length; i++) {
+        /*for (int i=0; i < win.length; i++) {
             rulesTxt.append(win[i] + " \n");
         }
         rulesTxt.append("\n");
         rulesTxt.append("(c) SheP&Co \n");
         rulesTxt.append("E-Mail: Tols78@Inbox.ru \n");
-        rulesTxt.setEditable(false);
+        rulesTxt.setEditable(false);*/
 
         JPanel pnlRules = new JPanel();
         pnlRules.setBackground(Color.WHITE);
@@ -44,6 +47,22 @@ public class DialogAbout extends JDialog {
         setSize(280,270);
         setLocationRelativeTo(owner);
 
+    }
+
+    public void rereadAbout(String[] win){
+        rulesTxt.setText(null);
+        setTxtAbout(win);
+    }
+
+    private void setTxtAbout(String[] win){
+
+        for (int i=0; i < win.length; i++) {
+            rulesTxt.append(win[i] + " \n");
+        }
+        rulesTxt.append("\n");
+        rulesTxt.append("(c) SheP&Co \n");
+        rulesTxt.append("E-Mail: Tols78@Inbox.ru \n");
+        rulesTxt.setEditable(false);
     }
 
 }
