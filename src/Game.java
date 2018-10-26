@@ -121,8 +121,8 @@ public class Game {
         if (foxCount == 0) {
             state = GameState.WINNER;
             timerGame.cancel();
-            rating = (durationGame / stepCount) * foxMax;
-
+            //rating = (durationGame / stepCount) * foxMax;
+            rating = ((foxMax / stepCount) + (foxMax/durationGame)) * 100 ;
             //Если играл с помошником убавляем рейтинг в 3 раза
             if (helper == 1) {
                 rating = rating / 3;
